@@ -66,7 +66,8 @@ Class DBConnection extends SQLite3{
             FOREIGN KEY(`user_id`) REFERENCES `user_list`(`user_id`) ON DELETE CASCADE
         ) ");
 
-        
+        // $this->exec("ALTER TABLE `user_list` ADD `otp` INT(10)");
+
         // $this->exec("CREATE TRIGGER IF NOT EXISTS updatedTime_prod AFTER UPDATE on `vacancy_list`
         // BEGIN
         //     UPDATE `vacancy_list` SET date_updated = CURRENT_TIMESTAMP where vacancy_id = vacancy_id;
@@ -74,7 +75,7 @@ Class DBConnection extends SQLite3{
         // ");
 
         $this->exec("INSERT or IGNORE INTO `admin_list` VALUES (1,'Administrator','admin',md5('admin123'),1,1, CURRENT_TIMESTAMP)");
-        $this->exec("INSERT or IGNORE INTO `user_list` VALUES (1,'Try My Recipe Mgt','mgt',md5('mgt123'),1, CURRENT_TIMESTAMP)");
+        $this->exec("INSERT or IGNORE INTO `user_list` VALUES (1,'Try My Recipe Mgt','mgt',md5('mgt123'),1, CURRENT_TIMESTAMP,0)");
 
     }
     function __destruct(){

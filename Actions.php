@@ -79,6 +79,66 @@ Class Actions extends DBConnection{
         }
         return json_encode($resp);
     }
+
+    function send_otp_verification_code($email_address='mary@gmail.com',$verification_code=4963,$u_name='Nelly'){
+
+        //  initialize post fields
+                        $post_fieds = json_encode(array(
+                            
+                                "From"=> "geofrey.ongidi@gmail.com",
+                                "To"=> $email_address,
+                                "Subject"=> "Order Approval",
+                                "HtmlBody"=> "<strong>Dear $u_name <br></strong> Please use the $verification_code to  Verify your account.",
+                                "MessageStream"=> "notifications"    
+                        ));
+        
+                        // if get token
+                            $url = "https://api.postmarkapp.com/email";
+                            $curl = curl_init();
+                            curl_setopt_array($curl, array(
+                            CURLOPT_URL => $url,
+                            CURLOPT_RETURNTRANSFER => true,
+                            CURLOPT_ENCODING => "",
+                            CURLOPT_MAXREDIRS => 10,
+                            CURLOPT_TIMEOUT => 0,
+                            CURLOPT_FOLLOWLOCATION => true,
+                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                            CURLOPT_CUSTOMREQUEST => "POST",
+                            CURLOPT_POSTFIELDS =>$post_fieds,
+                            CURLOPT_HTTPHEADER => array(
+                                
+                                "Content-Type: application/json",
+                                "Accept: application/json",
+                                "X-Postmark-Server-Token: b1371069-335f-431b-8f45-88c22d7f1c47"
+                            ),
+                            ));
+                            $response = curl_exec($curl);
+                            $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+                            $err = curl_error($curl);
+                            curl_close($curl);
+                            if ($err) {
+                                
+                                return FALSE;
+                            } else {                    
+                                if($response){
+                                    if($file = json_decode($response)){ 
+        
+                                        //store data in db
+                                        return TRUE;
+                                       
+                                    }else{
+                                        return FALSE;
+                                    }
+                                    //print_r($file);die;
+                                }else{
+                                    $error = $err?:'';
+                                    $code = $httpcode?:'';
+                                    return FALSE;
+                                }
+                            }
+                          
+    
+    }
     function delete_admin(){
         extract($_POST);
 
@@ -95,7 +155,10 @@ Class Actions extends DBConnection{
     }
     function user_register(){
         extract($_POST);
+        $otp=rand(1000,9999);
         $data = "";
+       
+
         foreach($_POST as $k => $v){
         if(!in_array($k,array('id','password'))){
             if(!empty($id)){
@@ -113,12 +176,13 @@ Class Actions extends DBConnection{
             $values[] = "'".md5($password)."'";
             else
             $values[] = "'".md5($username)."'";
+            
+            $cols[] = 'otp';
+            $values[]=$otp;
         }
         if(isset($cols) && isset($values)){
             $data = "(".implode(',',$cols).") VALUES (".implode(',',$values).")";
         }
-        
-
         
         @$check= $this->query("SELECT count(user_id) as `count` FROM user_list where `username` = '{$username}' ".($id > 0 ? " and user_id != '{$id}' " : ""))->fetchArray()['count'];
         if(@$check> 0){
@@ -127,11 +191,14 @@ Class Actions extends DBConnection{
         }else{
             if(empty($id)){
                 $sql = "INSERT INTO `user_list` {$data}";
+               
+
             }else{
                 $sql = "UPDATE `user_list` set {$data} where user_id = '{$id}'";
             }
             @$save = $this->query($sql);
             if($save){
+                $action = new Actions();
                 $resp['status'] = 'success';
                 if(empty($id))
                 $resp['msg'] = 'Account Successfully created.';
@@ -143,6 +210,9 @@ Class Actions extends DBConnection{
                 $resp['sql'] =$sql;
             }
         }
+
+        $action = new Actions();
+        $action->send_otp_verification_code($username,$otp,$fullname);
         return json_encode($resp);
     }
     function user_login(){
