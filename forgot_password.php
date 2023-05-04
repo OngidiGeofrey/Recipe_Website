@@ -42,28 +42,24 @@ background-color: #03720c;
     <div class="col-12">
         <div class="row">
             <div class="col-md-4  py-5 my-4">
-                <h3><b>Login Here</b></h3>
+                <small><h5><b>Enter your Email address</b></h5></small>
                 <hr>
              
                 <form action="" id="login-form">
                     <div class="form-group">
-                        <label for="username" class="control-label">Username</label>
+                        <label for="username" class="control-label">email address</label>
                         <input type="text" name="username" class="form-control form-control-sm rounded-0" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="control-label">Password</label>
-                        <input type="password" name="password" class="form-control form-control-sm rounded-0" required>
                     </div>
                     <div class="form-group my-1 pt-2">
                         <div class=" w-100 d-flex justify-content-left">
-                            <button class="btn btn-sm btn-primary rounded-0">Login</button>
-                            <a  style="margin-left:50px; text-decoration:none" href="<?php echo 'http://localhost/recipe_website/?page=forgot_password'?>">Forgot Password?</a>
+                            <button class="btn btn-sm btn-primary rounded-0">Reset</button>
+                            <a  style="margin-left:50px; text-decoration:none" href="<?php echo 'http://localhost/recipe_website/?page=login_registration'?>">Sign In</a>
                             
                         </div>
                         <br>
-                        <div class=" w-100 d-flex justify-content-left">
+                        <!-- <div class=" w-100 d-flex justify-content-left">
                             <a style=" text-decoration:none" href="<?php echo 'http://localhost/recipe_website/?page=register'?>">SIGN UP</a>
-                        </div>
+                        </div> -->
                     </div>
                 </form>
             </div>
@@ -82,7 +78,7 @@ background-color: #03720c;
             _this.find('button').attr('disabled',true)
             _this.find('button[type="submit"]').text('logging in...')
             $.ajax({
-                url:'./Actions.php?a=login_user',
+                url:'./user_reset_password.php?a=reset_password',
                 method:'POST',
                 data:$(this).serialize(),
                 dataType:'JSON',
@@ -97,7 +93,7 @@ background-color: #03720c;
                 },
                 success:function(resp){
                     if(resp.status == 'success'){
-                        location.replace('./')
+                        _el.text("Please click the link sent to your email address.")
                     }else{
                         _el.addClass('alert alert-danger')
                     }

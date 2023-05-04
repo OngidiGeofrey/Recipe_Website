@@ -19,29 +19,39 @@ foreach($qry->fetchArray() as $k=>$v){
 if(isset($_POST['add_to_meal_planner'])) {
     // Get the recipe ID from the request parameters
     $recipe_id = $_GET['rid'];
+    
 
     // Get the user ID from the session
-    session_start();
+
     $user_id = $_SESSION['user_id'];
 
     // Check if the recipe is already in the user's meal planner
     $sql = "SELECT * FROM meal_planner WHERE user_id = '$user_id' AND recipe_id = '$recipe_id'";
     $result = $conn->query($sql);
-    if($result->numColumns() > 0) {
-        // Recipe already exists in meal planner
-        echo "<script>alert('Recipe already added to meal planner.');</script>";
-    } else {
+    
         // Add the recipe to the user's meal planner
         $sql = "INSERT INTO meal_planner (user_id, recipe_id) VALUES ($user_id, $recipe_id)";
-        $conn->exec($sql);
+        if($conn->exec($sql)){
+            echo "<script>alert('Recipe has been added to the meal planner.');</script>";
+
+        }
+
+        else{
+            echo "<script>alert('Recipe has been added to the meal planner.');</script>";
+              header('Refresh:0; view_recipe.php?rid=$recipe_id');
+        }
     
         // Show the alert message on the same page
-        echo "<script>alert('Recipe has been added to the meal planner.');</script>";
-    }
+       
 
         // // Redirect back to the recipe details page
-        // header("Location: view_recipe.php?rid=$recipe_id");
+      
         // exit();
+    }
+    //add_to_shopping_list
+    if(isset($_POST['add_to_shopping_list'])) {
+        // Get the recipe ID from the request parameters
+        $recipe_id = $_GET['rid'];
     }
 
 ?>
@@ -199,7 +209,7 @@ if(isset($_POST['add_to_meal_planner'])) {
         <form method="POST" id="meal-planner-form">
             <button type="submit" style="background-color: #03720c;" name="add_to_meal_planner" class="btn btn-primary" onclick=><i class="fa fa-plus"></i> Add to Meal Planner</button>
         </form>
-        <button type="submit" name="add_to_shopping_list" style="background-color: #03720c; margin-left: 500px; margin-top:-60px;"  class="btn btn-primary" id="add-to-meal-planner"><i class="fas fa-shopping-cart"></i> Add to Shopping List</button>
+        <button type="submit" name="add_to_shopping_list" style="background-color: #03720c; margin-left: 500px; margin-top:-60px;" ><i class="btn btn-primary" id="add-to-meal-planner"><i class="fas fa-shopping-cart"></i> Add to Shopping List</button>
         <hr class="m-0">
     </div>
     

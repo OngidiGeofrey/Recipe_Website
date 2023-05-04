@@ -460,10 +460,21 @@ Class Actions extends DBConnection{
         $resp['msg'] = "Settings successfully updated.";
         return json_encode($resp);
     }
+
+    function reset_password(){
+        extract($_POST);
+        // file_put_contents('./about.html',htmlentities($about));
+        // file_put_contents('./welcome.html',htmlentities($welcome));
+        // $resp['status'] = "success";
+        $resp['msg'] = "Settings successfully updated.";
+        return json_encode($resp);
+    }
 }
 $a = isset($_GET['a']) ?$_GET['a'] : '';
 $action = new Actions();
 switch($a){
+    case 'reset_password':
+        echo $action->reset_password();
     case 'login':
         echo $action->login();
     break;

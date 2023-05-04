@@ -37,43 +37,40 @@ background-color: #03720c;
 }
 
 </style>
-
 <div class="container py-5 mt-4">
     <div class="col-12">
         <div class="row">
-            <div class="col-md-4  py-5 my-4">
-                <h3><b>Login Here</b></h3>
-                <hr>
-             
-                <form action="" id="login-form">
-                    <div class="form-group">
-                        <label for="username" class="control-label">Username</label>
-                        <input type="text" name="username" class="form-control form-control-sm rounded-0" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="control-label">Password</label>
-                        <input type="password" name="password" class="form-control form-control-sm rounded-0" required>
-                    </div>
-                    <div class="form-group my-1 pt-2">
-                        <div class=" w-100 d-flex justify-content-left">
-                            <button class="btn btn-sm btn-primary rounded-0">Login</button>
-                            <a  style="margin-left:50px; text-decoration:none" href="<?php echo 'http://localhost/recipe_website/?page=forgot_password'?>">Forgot Password?</a>
-                            
+            <div class="col-md-8 border-start py-5 my-4">
+                <div class="col-sm-6 offset-sm-2">
+                    <h4><b>Create  Account</b></h4>
+                    <form action="" id="sign-up">
+                        <div class="form-group">
+                            <label for="fullname" class="control-label">Fullname</label>
+                            <input type="text" name="fullname" class="form-control form-control-sm rounded-0" required>
                         </div>
-                        <br>
-                        <div class=" w-100 d-flex justify-content-left">
-                            <a style=" text-decoration:none" href="<?php echo 'http://localhost/recipe_website/?page=register'?>">SIGN UP</a>
+                        <div class="form-group">
+                            <label for="username" class="control-label">Username</label>
+                            <input type="text" name="username" class="form-control form-control-sm rounded-0" required>
                         </div>
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <label for="password" class="control-label">Password</label>
+                            <input type="password" name="password" class="form-control form-control-sm rounded-0" required>
+                        </div>
+                        <div class="form-group my-1 pt-2">
+                            <div class=" w-100 d-flex justify-content-end">
+                                <button class="btn btn-sm btn-primary rounded-0">Create Account</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-             
         </div>
     </div>
 </div>
 <script>
     $(function(){
-        $('#login-form').submit(function(e){
+        
+        $('#sign-up').submit(function(e){
             e.preventDefault();
             $('.pop_msg').remove()
             var _this = $(this)
@@ -82,7 +79,7 @@ background-color: #03720c;
             _this.find('button').attr('disabled',true)
             _this.find('button[type="submit"]').text('logging in...')
             $.ajax({
-                url:'./Actions.php?a=login_user',
+                url:'./Actions.php?a=user_register',
                 method:'POST',
                 data:$(this).serialize(),
                 dataType:'JSON',
@@ -97,7 +94,7 @@ background-color: #03720c;
                 },
                 success:function(resp){
                     if(resp.status == 'success'){
-                        location.replace('./')
+                        _el.addClass('alert alert-success')
                     }else{
                         _el.addClass('alert alert-danger')
                     }
@@ -111,6 +108,5 @@ background-color: #03720c;
                 }
             })
         })
-        
     })
 </script>
