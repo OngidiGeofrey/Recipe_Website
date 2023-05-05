@@ -103,7 +103,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
                     <a class="btn btn-secondary bg-transparent  text-light border-0 me-1" href="./?page=login_registration" >
                     Login
                     </a>
-                    <a class="btn btn-secondary bg-transparent  text-light border-0" href="./?page=login_registration" >
+                    <a class="btn btn-secondary bg-transparent  text-light border-0" href="./?page=register" >
                     Register
                     </a>
                 <?php endif; ?>

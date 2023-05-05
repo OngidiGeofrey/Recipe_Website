@@ -80,18 +80,19 @@ Class Actions extends DBConnection{
         return json_encode($resp);
     }
 
-    function send_otp_verification_code($email_address='mary@gmail.com',$verification_code=4963,$u_name='Nelly'){
+    function send_otp_verification_code($email_address,$verification_code,$u_name){
+ 
 
         //  initialize post fields
                         $post_fieds = json_encode(array(
                             
-                                "From"=> "geofrey.ongidi@gmail.com",
+                                "From"=> "geofrey.ongidi@digitalvision.co.ke",
                                 "To"=> $email_address,
-                                "Subject"=> "Order Approval",
+                                "Subject"=> "Account Verification",
                                 "HtmlBody"=> "<strong>Dear $u_name <br></strong> Please use the $verification_code to  Verify your account.",
                                 "MessageStream"=> "notifications"    
                         ));
-        
+      
                         // if get token
                             $url = "https://api.postmarkapp.com/email";
                             $curl = curl_init();
@@ -122,7 +123,7 @@ Class Actions extends DBConnection{
                             } else {                    
                                 if($response){
                                     if($file = json_decode($response)){ 
-        
+
                                         //store data in db
                                         return TRUE;
                                        
@@ -210,9 +211,7 @@ Class Actions extends DBConnection{
                 $resp['sql'] =$sql;
             }
         }
-
-        $action = new Actions();
-        $action->send_otp_verification_code($username,$otp,$fullname);
+        $this->send_otp_verification_code($username,$otp,$fullname);
         return json_encode($resp);
     }
     function user_login(){
