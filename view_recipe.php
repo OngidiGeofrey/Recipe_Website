@@ -15,6 +15,40 @@ foreach($qry->fetchArray() as $k=>$v){
     $$k=$v;
 }
 
+
+if(isset($_POST['add_to_shopping_list'])) {
+    // Get the recipe ID from the request parameters
+    $recipe_id = $_GET['rid'];
+
+    $recipe_id = $_GET['rid'];
+
+// Get the recipe ID from the request parameters
+$recipe_id = $_GET['rid'];
+    
+
+// Get the user ID from the session
+
+$user_id = $_SESSION['user_id'];
+
+// Check if the recipe is already in the user's meal planner
+$sql = "SELECT * FROM meal_planner WHERE user_id = '$user_id' AND recipe_id = '$recipe_id'";
+$result = $conn->query($sql);
+
+    // Add the recipe to the user's meal planner
+    $sql = "INSERT INTO shopping_list (user_id, recipe_id,message) VALUES ($user_id, $recipe_id,'')";
+    if($conn->exec($sql)){
+        echo "<script>alert('Recipe has been added to the shopping list.');</script>";
+
+    }
+
+    else{
+        echo "<script>alert('Error occured.');</script>";
+          header('Refresh:0; view_recipe.php?rid=$recipe_id');
+    }
+
+        // Show the alert message on the same page
+       
+}
 // Check if the "Add to Meal Planner" button was clicked
 if(isset($_POST['add_to_meal_planner'])) {
     // Get the recipe ID from the request parameters
@@ -32,7 +66,7 @@ if(isset($_POST['add_to_meal_planner'])) {
         // Add the recipe to the user's meal planner
         $sql = "INSERT INTO meal_planner (user_id, recipe_id) VALUES ($user_id, $recipe_id)";
         if($conn->exec($sql)){
-            echo "<script>alert('Recipe has been added to the meal planner.');</script>";
+            echo "<script>alert('Recipe has been added to the shopping list.');</script>";
 
         }
 
@@ -49,10 +83,7 @@ if(isset($_POST['add_to_meal_planner'])) {
         // exit();
     }
     //add_to_shopping_list
-    if(isset($_POST['add_to_shopping_list'])) {
-        // Get the recipe ID from the request parameters
-        $recipe_id = $_GET['rid'];
-    }
+   
 
 ?>
 <head>
@@ -208,8 +239,9 @@ if(isset($_POST['add_to_meal_planner'])) {
     <div class="container py-5 mt-4">
         <form method="POST" id="meal-planner-form">
             <button type="submit" style="background-color: #03720c;" name="add_to_meal_planner" class="btn btn-primary" onclick=><i class="fa fa-plus"></i> Add to Meal Planner</button>
+            <button type="submit"  name="add_to_shopping_list" style="background-color: #03720c; margin-left: 500px; margin-top:-60px;" ><i class="btn btn-primary" id="add-to-meal-planner"><i class="fas fa-shopping-cart"></i> Add to Shopping List</button>
+
         </form>
-        <button type="submit" name="add_to_shopping_list" style="background-color: #03720c; margin-left: 500px; margin-top:-60px;" ><i class="btn btn-primary" id="add-to-meal-planner"><i class="fas fa-shopping-cart"></i> Add to Shopping List</button>
         <hr class="m-0">
     </div>
     
@@ -293,6 +325,13 @@ document.getElementById("add-to-meal-planner-btn").addEventListener("click", fun
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.send("recipe_id=<?php echo $recipe_id ?>");
 });
+
+
+document.getElementByName("add_to_shopping_list").addEventListener("click", function(event) {
+   console.log("Hello world")
+});
+
+
 
 </script>
 <script>

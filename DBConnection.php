@@ -66,7 +66,19 @@ Class DBConnection extends SQLite3{
             FOREIGN KEY(`user_id`) REFERENCES `user_list`(`user_id`) ON DELETE CASCADE
         ) ");
 
-        // $this->exec("ALTER TABLE `user_list` ADD `otp` INT(10)");
+
+    $this->exec("CREATE TABLE IF NOT EXISTS `shopping_list` (
+        `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        `recipe_id` TEXT NOT NULL,
+        `user_id` TEXT NOT NULL,
+        `message` TEXT NOT NULL,
+        `date_created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY(`recipe_id`) REFERENCES `recipe_list`(`recipe_id`) ON DELETE CASCADE
+        FOREIGN KEY(`user_id`) REFERENCES `user_list`(`user_id`) ON DELETE CASCADE
+    ) ");
+
+
+   
 
         // $this->exec("CREATE TRIGGER IF NOT EXISTS updatedTime_prod AFTER UPDATE on `vacancy_list`
         // BEGIN

@@ -87,6 +87,10 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
                         <li>
                             <a class="dropdown-item" href="./?page=meals">My Meal Planners</a>
                         </li>
+
+                        <li>
+                            <a class="dropdown-item" href="./?page=shopping">My Shopping List</a>
+                        </li>
                         <li>
                             <a class="dropdown-item" href="./?page=manage_account">Account Settings</a>
                         </li>
