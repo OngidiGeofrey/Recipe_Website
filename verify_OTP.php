@@ -78,7 +78,7 @@ background-color: #03720c;
             _this.find('button').attr('disabled',true)
             _this.find('button[type="submit"]').text('logging in...')
             $.ajax({
-                url:'./user_reset_password.php?a=reset_password',
+                url:'./user_reset_password.php?a=verify_otp',
                 method:'POST',
                 data:$(this).serialize(),
                 dataType:'JSON',
@@ -93,11 +93,13 @@ background-color: #03720c;
                 },
                 success:function(resp){
                     if(resp.status == 'success'){
-                        _el.text("Please click the link sent to your email address.")
+                        _el.addClass('alert alert-success')
+                         _el.text(resp.msg)
                     }else{
                         _el.addClass('alert alert-danger')
+                         _el.text(resp.msg)
                     }
-                    _el.text(resp.msg)
+                   
 
                     _el.hide()
                     _this.prepend(_el)

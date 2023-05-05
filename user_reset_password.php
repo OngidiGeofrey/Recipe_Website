@@ -9,6 +9,29 @@ Class Actions extends DBConnection{
     function __destruct(){
         parent::__destruct();
     }
+
+    function verify_otp(){
+
+       extract($_POST);
+
+       $email_address=$_SESSION['email_address'];
+       $sql = "SELECT * FROM `user_list`     where `username` = '$email_address' ";
+       @$qry = $this->query($sql)->fetchArray();
+       if($qry["otp"]==$username){
+
+        $resp['msg'] = "OTP verified successfully. Please Login";
+
+       }
+
+       else
+
+       {
+        $resp['msg'] = "Wrong Code Entered . Please Try again";
+       }
+       
+    return json_encode($resp);
+
+    }
    function  update_password(){
     $username=$_GET['email'];
     extract($_POST);
@@ -115,6 +138,10 @@ switch($a){
     case 'reset_password':
         echo $action->reset_password();
         break;
+
+        case 'verify_otp':
+            echo $action->verify_otp();
+            break;
 
     case 'change_user_password':
         echo $action->update_password();

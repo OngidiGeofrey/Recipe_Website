@@ -95,7 +95,7 @@ background-color: #03720c;
                 success:function(resp){
                     if(resp.status == 'success'){
                         _el.addClass('alert alert-success')
-                        location.replace('http://localhost/recipe_website/?page=verify_OTP')
+                        location.replace('http://localhost/recipe_website/?page=verify_OTP&email')
                         _el.addClass('alert alert-success')
                     }else{
                         _el.addClass('alert alert-danger')
