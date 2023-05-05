@@ -6,7 +6,7 @@ if(!isset($_SESSION['user_id']))
 <div class="container py-5 nt-4">
 <div class="card">
     <div class="card-header d-flex justify-content-between">
-        <h3 class="card-title">My Meal Plans</h3>
+        <h3 class="card-title">My Shopping  List</h3>
          
     </div>
     <div class="card-body">
