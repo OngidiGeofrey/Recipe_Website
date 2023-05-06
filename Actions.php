@@ -374,7 +374,11 @@ Class Actions extends DBConnection{
         $data = "";
         $_POST['user_id'] = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 1;
         foreach($_POST as $k => $v){
-            if(in_array($k,array('description','ingredients','steps','other_info')))
+
+            $cols[]="cost";
+            $vals[]=$_POST['cost'];
+
+            if(in_array($k,array('description','ingredients','steps','other_info','cost')))
             $v = htmlentities($v);
             if(!in_array($k,array('id'))){
                 $v = trim($v);

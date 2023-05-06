@@ -78,6 +78,10 @@ Class DBConnection extends SQLite3{
     ) ");
 
 
+
+
+
+
    
 
         // $this->exec("CREATE TRIGGER IF NOT EXISTS updatedTime_prod AFTER UPDATE on `vacancy_list`

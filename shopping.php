@@ -22,10 +22,12 @@ if(!isset($_SESSION['user_id']))
             </colgroup>
             <thead>
                 <tr>
-                <th class="text-center p-0">#</th>
-                <th class="text-center p-0">photo</th>
-                <th class="text-center p-0">Title</th>
-                <th class="text-center p-0">Status</th>
+                <th class="text-center p-0">order ID</th>
+                <th class="text-center p-0">product photo</th>
+                <th class="text-center p-0">product Name</th>
+                <th class="text-center p-0">Amount</th>
+                <th class="text-center p-0">Action</th>
+                 
                  
                 
                 </tr>
@@ -39,15 +41,15 @@ if(!isset($_SESSION['user_id']))
                 // $qry = $conn->query($sql);
 
                 // Check if the recipe is already in the user's meal planner
-                $sql = "SELECT * FROM shopping_list WHERE user_id = '$user_id'";
-                $qry = $conn->query($sql);
-
+                $sql = "SELECT * FROM shopping_list WHERE user_id LIKE '$user_id'";
+                $qry = $conn->query($sql); 
+                $row = $qry->fetchArray();
                
-                
                 $i = 1;
                     while($row = $qry->fetchArray()):
                        $recipe_id= $row['recipe_id'];
-                        $sql = "SELECT title,status,description FROM recipe_list WHERE recipe_id = '$recipe_id'";
+                       
+                        $sql = "SELECT title,status,description,cost FROM recipe_list WHERE recipe_id = '$recipe_id'";
                         $qry = $conn->query($sql);
                         $row1 = $qry->fetchArray();
                     //    ;
@@ -62,7 +64,7 @@ if(!isset($_SESSION['user_id']))
                     <td class="py-0 px-1 text-end"><?php echo $row1['title']; ?></td>
                     <td class="py-0 px-1">
                         <div class="fs-6 lh-1">
-                            <span class="fw-bold"><?php echo $row1['status'] ?></span><br>
+                            <span class="fw-bold"><?php echo 'USD '.$row1['cost'] ?></span><br>
                             
                              
                         </div>

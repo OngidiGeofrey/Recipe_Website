@@ -107,7 +107,7 @@ foreach($qry->fetchArray() as $k=>$v){
                     <div class="card-footer">
   <div class="ratings d-flex justify-content-end">Ratings:
     <div class="rating">
-      <span class="fa fa-star"></span>
+      <span class="fa fa-star "></span>
       <span class="fa fa-star"></span>
       <span class="fa fa-star"></span>
       <span class="fa fa-star"></span>
@@ -157,7 +157,10 @@ foreach($qry->fetchArray() as $k=>$v){
 </script>
 <script>
 $(document).ready(function() {
-  $('.rating span').click(function() {
+
+     
+  $('.fa-star').click(function() {
+    $(this).css('color', 'orange'); 
     $(this).addClass('checked');
     $(this).prevAll().addClass('checked');
     $(this).nextAll().removeClass('checked');

@@ -46,6 +46,13 @@ $qry = $conn->query("SELECT * FROM `recipe_list` where recipe_id = '{$_GET['id']
                                 <label for="image" class="control-label">Recipe Image</label>
                                 <input type="file" name="image" id="image" <?php echo !isset($recipe_id)? "required" : "" ?> class="form-control form-control-sm rounded-0" accept="image/png, image/jpeg">
                             </div>
+
+
+                            <div class="form-group">
+                                <label for="title" class="control-label">Cost of preparing the Recipe</label>
+                                <input type="number" name="cost" autofocus id="cost" required class="form-control currency form-control-sm rounded-0" value="<?php echo isset($title) ? $title : '' ?>">
+                            </div>
+                             
                             <div class="form-group">
                                 <label for="description" class="control-label">Description</label>
                                 <textarea name="description" id="description" cols="30" rows="3" class="form-control rounded-0 summernote" data-placeholder="Write the description here." data-height="30vh" required><?php echo isset($description) ? $description : '' ?></textarea>

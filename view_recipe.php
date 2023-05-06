@@ -20,22 +20,14 @@ if(isset($_POST['add_to_shopping_list'])) {
     // Get the recipe ID from the request parameters
     $recipe_id = $_GET['rid'];
 
-    $recipe_id = $_GET['rid'];
-
-// Get the recipe ID from the request parameters
-$recipe_id = $_GET['rid'];
+   
     
 
 // Get the user ID from the session
 
 $user_id = $_SESSION['user_id'];
-
-// Check if the recipe is already in the user's meal planner
-$sql = "SELECT * FROM meal_planner WHERE user_id = '$user_id' AND recipe_id = '$recipe_id'";
-$result = $conn->query($sql);
-
     // Add the recipe to the user's meal planner
-    $sql = "INSERT INTO shopping_list (user_id, recipe_id,message) VALUES ($user_id, $recipe_id,'')";
+    $sql = "INSERT INTO shopping_list (user_id, recipe_id,`message`) VALUES ($user_id, $recipe_id,'')";
     if($conn->exec($sql)){
         echo "<script>alert('Recipe has been added to the shopping list.');</script>";
 
