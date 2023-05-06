@@ -58,7 +58,7 @@ if(!isset($_SESSION['user_id']))
                     <td class="text-center p-0"><?php echo $i++; ?></td>
                     <td class="py-0 px-1">
                         <center>
-                            <img src="<?php echo './uploads/'.$recipe_id.'.png' ?>" alt="<?php echo $row['title'] ?> Image" width="50px" height="50px" class="my-1">
+                            <img src="<?php echo './uploads/'.$recipe_id.'.png' ?>" alt="<?php echo $row['title'] ?>" width="50px" height="50px" class="my-1">
                         </center>
                     </td>
                     <td class="py-0 px-1 text-end"><?php echo $row1['title']; ?></td>
