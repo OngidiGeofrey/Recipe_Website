@@ -49,7 +49,7 @@ $qry = $conn->query("SELECT * FROM `recipe_list` where recipe_id = '{$_GET['id']
 
 
                             <div class="form-group">
-                                <label for="title" class="control-label">Cost of preparing the Recipe</label>
+                                <label for="title" class="control-label">Cost of preparing the Recipe (USD)</label>
                                 <input type="number" name="cost" autofocus id="cost" required class="form-control currency form-control-sm rounded-0" value="<?php echo isset($title) ? $title : '' ?>">
                             </div>
                              
